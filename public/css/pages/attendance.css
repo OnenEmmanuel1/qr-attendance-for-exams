@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════════
+   Attendance Page Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+.attendance-summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.attendance-stat {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.attendance-stat .stat-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.attendance-stat .stat-circle.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.attendance-stat .stat-circle.danger {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.attendance-stat .stat-circle.primary {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.attendance-stat .stat-details .stat-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-heading);
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+}
+
+.attendance-stat .stat-details .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+/* ─── Attendance Filters ─────────────────────────────────── */
+.attendance-filters {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.attendance-filters .filter-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-right: var(--spacing-sm);
+}
+
+.attendance-filters select,
+.attendance-filters input {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    outline: none;
+}
+
+.attendance-filters select:focus,
+.attendance-filters input:focus {
+    border-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+    .attendance-summary-bar {
+        grid-template-columns: 1fr;
+    }
+}

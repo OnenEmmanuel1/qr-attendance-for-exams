@@ -1,0 +1,125 @@
+<!-- Admin Attendance Reports -->
+<link rel="stylesheet" href="/css/pages/reports.css">
+<div class="users-page-header">
+    <h4><i class="bi bi-graph-up me-2"></i>Attendance Reports</h4>
+</div>
+
+<div class="report-filters">
+    <h5><i class="bi bi-funnel me-2"></i>Filter Reports</h5>
+    <form action="/admin/attendance-reports" method="GET" class="report-filter-grid">
+        <div class="form-group-custom">
+            <label>Examination</label>
+            <select name="examination_id" class="form-select-custom">
+                <option value="">All Examinations</option>
+                <% if (typeof examinations !== 'undefined') { %>
+                    <% examinations.forEach(function(exam) { %>
+                        <option value="<%= exam.id %>" <%= typeof selectedExam !== 'undefined' && selectedExam == exam.id ? 'selected' : '' %>><%= exam.course_code %> - <%= exam.exam_date %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="form-group-custom">
+            <label>Department</label>
+            <select name="department_id" class="form-select-custom">
+                <option value="">All Departments</option>
+                <% if (typeof departments !== 'undefined') { %>
+                    <% departments.forEach(function(dept) { %>
+                        <option value="<%= dept.id %>"><%= dept.name %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="form-group-custom">
+            <label>Date From</label>
+            <input type="date" name="date_from" class="form-control-custom">
+        </div>
+        <div class="form-group-custom">
+            <label>Date To</label>
+            <input type="date" name="date_to" class="form-control-custom">
+        </div>
+        <div class="form-group-custom d-flex align-items-end">
+            <button type="submit" class="btn-custom btn-primary-custom">
+                <i class="bi bi-search"></i> Filter
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Summary -->
+<div class="report-summary">
+    <div class="report-summary-card">
+        <div class="summary-value primary"><%= typeof reportData !== 'undefined' ? reportData.totalStudents || 0 : 0 %></div>
+        <div class="summary-label">Total Students</div>
+    </div>
+    <div class="report-summary-card">
+        <div class="summary-value success"><%= typeof reportData !== 'undefined' ? reportData.present || 0 : 0 %></div>
+        <div class="summary-label">Present</div>
+    </div>
+    <div class="report-summary-card">
+        <div class="summary-value danger"><%= typeof reportData !== 'undefined' ? reportData.absent || 0 : 0 %></div>
+        <div class="summary-label">Absent</div>
+    </div>
+    <div class="report-summary-card">
+        <div class="summary-value accent"><%= typeof reportData !== 'undefined' ? reportData.rate || '0%' : '0%' %></div>
+        <div class="summary-label">Attendance Rate</div>
+    </div>
+</div>
+
+<!-- Export -->
+<div class="report-export-bar">
+    <h5 style="margin:0;">Detailed Report</h5>
+    <div class="export-buttons">
+        <a href="/admin/attendance-reports/export/pdf" class="btn-custom btn-sm-custom btn-danger-custom">
+            <i class="bi bi-file-earmark-pdf"></i> Export PDF
+        </a>
+        <a href="/admin/attendance-reports/export/excel" class="btn-custom btn-sm-custom btn-success-custom">
+            <i class="bi bi-file-earmark-excel"></i> Export Excel
+        </a>
+    </div>
+</div>
+
+<!-- Report Table -->
+<div class="card-custom">
+    <div class="table-wrapper">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Matric No.</th>
+                    <th>Course</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Scanned At</th>
+                    <th>Scanned By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof records !== 'undefined' && records.length > 0) { %>
+                    <% records.forEach(function(r, i) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= r.first_name %> <%= r.last_name %></td>
+                            <td><%= r.matric_number %></td>
+                            <td><%= r.course_code %></td>
+                            <td><%= r.department_name %></td>
+                            <td><span class="status-badge <%= r.status %>"><%= r.status %></span></td>
+                            <td><%= r.scanned_at || '—' %></td>
+                            <td><%= r.scanner_name || '—' %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-state">
+                                <i class="bi bi-graph-up"></i>
+                                <h5>No Data</h5>
+                                <p>Apply filters or wait for attendance data.</p>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

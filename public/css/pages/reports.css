@@ -1,0 +1,101 @@
+/* ═══════════════════════════════════════════════════════════
+   Reports Page Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+.report-filters {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.report-filters h5 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-lg);
+}
+
+.report-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.report-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.report-summary-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+.report-summary-card .summary-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.report-summary-card .summary-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.report-summary-card .summary-value.primary { color: var(--color-primary); }
+.report-summary-card .summary-value.success { color: var(--color-success); }
+.report-summary-card .summary-value.danger { color: var(--color-danger); }
+.report-summary-card .summary-value.accent { color: var(--color-accent); }
+
+.report-export-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+}
+
+.report-export-bar .export-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* ─── Chart Container ────────────────────────────────────── */
+.chart-container {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.chart-container h5 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-lg);
+}
+
+.chart-container canvas {
+    max-height: 350px;
+}
+
+@media (max-width: 768px) {
+    .report-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .report-export-bar {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+    }
+}

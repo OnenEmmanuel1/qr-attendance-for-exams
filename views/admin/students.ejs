@@ -1,0 +1,267 @@
+<!-- Admin Student Management -->
+<link rel="stylesheet" href="/css/admin/users.css">
+<div class="users-page-header">
+    <h4><i class="bi bi-mortarboard me-2"></i>Student Management</h4>
+    <button class="btn-custom btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+        <i class="bi bi-person-plus"></i> Add Student
+    </button>
+</div>
+
+<div class="card-custom">
+    <div class="card-header-custom">
+        <div class="table-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="searchStudent" placeholder="Search students..." class="form-control-custom" onkeyup="searchTable()">
+        </div>
+        <div class="d-flex gap-2">
+            <select id="filterDept" class="form-select-custom" style="max-width: 200px;" onchange="filterStudents()">
+                <option value="">All Departments</option>
+                <% if (typeof departments !== 'undefined') { %>
+                    <% departments.forEach(function(dept) { %>
+                        <option value="<%= dept.id %>"><%= dept.name %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+            <select id="filterLevel" class="form-select-custom" style="max-width: 130px;" onchange="filterStudents()">
+                <option value="">All Levels</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+            </select>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-custom" id="studentsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Matric Number</th>
+                    <th>Department</th>
+                    <th>Level</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof students !== 'undefined' && students.length > 0) { %>
+                    <% students.forEach(function(student, index) { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                                <div class="table-user-info">
+                                    <div class="user-thumb">
+                                        <% if (student.passport_url) { %>
+                                            <img src="/uploads/<%= student.passport_url %>" alt="">
+                                        <% } else { %>
+                                            <%= student.first_name.charAt(0) %>
+                                        <% } %>
+                                    </div>
+                                    <div class="user-details">
+                                        <div class="name"><%= student.first_name %> <%= student.last_name %></div>
+                                        <div class="email"><%= student.email %></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><%= student.matric_number || '—' %></td>
+                            <td><%= student.department_name || '—' %></td>
+                            <td><%= student.level || '—' %></td>
+                            <td><span class="status-badge <%= student.is_active ? 'active' : 'inactive' %>"><%= student.is_active ? 'Active' : 'Inactive' %></span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon" title="Edit" onclick="editStudent(<%= student.id %>)"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-icon" title="Generate QR" onclick="generateQR(<%= student.id %>)"><i class="bi bi-qr-code"></i></button>
+                                    <button class="btn-icon danger" title="Delete" onclick="deleteStudent(<%= student.id %>)"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="bi bi-people"></i>
+                                <h5>No Students</h5>
+                                <p>No students have been registered yet.</p>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Student Modal -->
+<div class="modal fade modal-custom" id="addStudentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus me-2"></i>Add New Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="<%= user.role === 'admin' ? '/admin' : '/lecturer' %>/students" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>First Name <span class="required-mark">*</span></label>
+                                <input type="text" name="first_name" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Last Name <span class="required-mark">*</span></label>
+                                <input type="text" name="last_name" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Email Address <span class="required-mark">*</span></label>
+                                <input type="email" name="email" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Password <span class="required-mark">*</span></label>
+                                <input type="password" name="password" class="form-control-custom" required minlength="6">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Matric Number <span class="required-mark">*</span></label>
+                                <input type="text" name="matric_number" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Department <span class="required-mark">*</span></label>
+                                <select name="department_id" class="form-select-custom" required>
+                                    <option value="">Select Department</option>
+                                    <% if (typeof departments !== 'undefined') { %>
+                                        <% departments.forEach(function(dept) { %>
+                                            <option value="<%= dept.id %>"><%= dept.name %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Level <span class="required-mark">*</span></label>
+                                <select name="level" class="form-select-custom" required>
+                                    <option value="">Select Level</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Passport Photo</label>
+                                <input type="file" name="passport" class="form-control-custom" accept="image/jpeg,image/png,image/jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-custom btn-light-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-check-lg"></i> Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Student Modal -->
+<div class="modal fade modal-custom" id="editStudentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-pencil me-2"></i>Edit Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editStudentForm" action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>First Name <span class="required-mark">*</span></label>
+                                <input type="text" name="first_name" id="editStudentFirstName" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Last Name <span class="required-mark">*</span></label>
+                                <input type="text" name="last_name" id="editStudentLastName" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Matric Number <span class="required-mark">*</span></label>
+                                <input type="text" name="matric_number" id="editStudentMatric" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Phone</label>
+                                <input type="text" name="phone" id="editStudentPhone" class="form-control-custom">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Department <span class="required-mark">*</span></label>
+                                <select name="department_id" id="editStudentDept" class="form-select-custom" required>
+                                    <option value="">Select Department</option>
+                                    <% if (typeof departments !== 'undefined') { %>
+                                        <% departments.forEach(function(dept) { %>
+                                            <option value="<%= dept.id %>"><%= dept.name %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Level <span class="required-mark">*</span></label>
+                                <select name="level" id="editStudentLevel" class="form-select-custom" required>
+                                    <option value="">Select Level</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Status</label>
+                                <select name="is_active" id="editStudentActive" class="form-select-custom">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>New Passport Photo</label>
+                                <input type="file" name="passport" class="form-control-custom" accept="image/jpeg,image/png,image/jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-custom btn-light-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-check-lg"></i> Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

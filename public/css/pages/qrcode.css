@@ -1,0 +1,271 @@
+/* ═══════════════════════════════════════════════════════════
+   QR Code Page Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+.qr-display-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    text-align: center;
+}
+
+.qr-code-wrapper {
+    display: inline-block;
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.qr-code-wrapper img {
+    max-width: 250px;
+    height: auto;
+    display: block;
+}
+
+.qr-student-info {
+    margin-bottom: var(--spacing-xl);
+}
+
+.qr-student-info h4 {
+    font-size: var(--font-size-lg);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-sm);
+}
+
+.qr-student-info .matric-number {
+    display: inline-block;
+    padding: 4px 16px;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-md);
+}
+
+.qr-details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: left;
+}
+
+.qr-details-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-border-light);
+    font-size: var(--font-size-sm);
+}
+
+.qr-details-list li:last-child {
+    border-bottom: none;
+}
+
+.qr-details-list li .label {
+    color: var(--color-text);
+}
+
+.qr-details-list li .value {
+    color: var(--color-heading);
+    font-weight: var(--font-weight-medium);
+}
+
+.qr-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+/* ─── QR Code List ───────────────────────────────────────── */
+.qr-code-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.qr-code-item {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: box-shadow var(--transition-base);
+}
+
+.qr-code-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.qr-code-item .qr-thumb {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--spacing-md);
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+}
+
+.qr-code-item .qr-thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.qr-code-item h6 {
+    font-size: var(--font-size-sm);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.qr-code-item .qr-exam-info {
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ─── Scanner Styles ─────────────────────────────────────── */
+.scanner-container {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.scanner-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scanner-header h5 {
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-heading);
+}
+
+.scanner-viewfinder {
+    position: relative;
+    background-color: #000;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanner-viewfinder #reader {
+    width: 100%;
+    max-width: 500px;
+}
+
+.scanner-controls {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
+
+.scanner-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.scanner-status .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+}
+
+.scanner-status .status-indicator.active {
+    background-color: var(--color-success);
+}
+
+.scanner-status .status-indicator.inactive {
+    background-color: var(--color-danger);
+}
+
+/* ─── Scan Log ───────────────────────────────────────────── */
+.scan-log {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+}
+
+.scan-log-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scan-log-header h5 {
+    margin: 0;
+    font-size: var(--font-size-base);
+    color: var(--color-heading);
+}
+
+.scan-log-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.scan-log-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.scan-log-item:last-child {
+    border-bottom: none;
+}
+
+.scan-log-item .scan-status-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    flex-shrink: 0;
+}
+
+.scan-log-item .scan-status-icon.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.scan-log-item .scan-status-icon.failed {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.scan-log-item .scan-info {
+    flex: 1;
+}
+
+.scan-log-item .scan-info .scan-name {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-heading);
+}
+
+.scan-log-item .scan-info .scan-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}

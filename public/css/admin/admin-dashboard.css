@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════
+   Admin Dashboard Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* Admin dashboard uses shared dashboard.css layout */
+/* Additional admin-specific styles below */
+
+.admin-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.quick-action-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.quick-action-btn i {
+    width: 20px;
+    text-align: center;
+}
+
+/* ─── Recent Activity Table ──────────────────────────────── */
+.recent-activity-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+}
+
+.recent-activity-header h5 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.recent-activity-header a {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+}

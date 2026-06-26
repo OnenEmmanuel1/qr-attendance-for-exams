@@ -1,0 +1,174 @@
+/* ═══════════════════════════════════════════════════════════
+   Admin Settings Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+.settings-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: var(--spacing-xl);
+}
+
+.settings-sidebar {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    height: fit-content;
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--spacing-xl));
+}
+
+.settings-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-nav li a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.settings-nav li a:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.settings-nav li a.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.settings-content {
+    min-width: 0;
+}
+
+.settings-section {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.settings-section h4 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.settings-section .section-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.settings-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-row .setting-info {
+    flex: 1;
+}
+
+.settings-row .setting-info h6 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.settings-row .setting-info p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    margin-bottom: 0;
+}
+
+.settings-row .setting-control {
+    flex-shrink: 0;
+    min-width: 200px;
+}
+
+/* ─── Toggle Switch ──────────────────────────────────────── */
+.toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-border);
+    border-radius: 24px;
+    transition: all var(--transition-fast);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: var(--color-primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+}
+
+@media (max-width: 768px) {
+    .settings-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-sidebar {
+        position: static;
+    }
+
+    .settings-row {
+        flex-direction: column;
+    }
+
+    .settings-row .setting-control {
+        min-width: 100%;
+    }
+}

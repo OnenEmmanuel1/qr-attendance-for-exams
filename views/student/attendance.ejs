@@ -1,0 +1,90 @@
+<!-- Student Attendance History -->
+<link rel="stylesheet" href="/css/pages/attendance.css">
+<div class="attendance-summary-bar">
+    <div class="attendance-stat">
+        <div class="stat-circle primary"><%= typeof stats !== 'undefined' ? stats.total || 0 : 0 %></div>
+        <div class="stat-details">
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.total || 0 : 0 %></div>
+            <div class="stat-label">Total Exams</div>
+        </div>
+    </div>
+    <div class="attendance-stat">
+        <div class="stat-circle success"><i class="bi bi-check-lg"></i></div>
+        <div class="stat-details">
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.present || 0 : 0 %></div>
+            <div class="stat-label">Present</div>
+        </div>
+    </div>
+    <div class="attendance-stat">
+        <div class="stat-circle danger"><i class="bi bi-x-lg"></i></div>
+        <div class="stat-details">
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.absent || 0 : 0 %></div>
+            <div class="stat-label">Absent</div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="attendance-filters">
+    <span class="filter-label"><i class="bi bi-funnel me-1"></i> Filter:</span>
+    <select id="filterCourse" onchange="filterTable()">
+        <option value="">All Courses</option>
+        <% if (typeof courses !== 'undefined') { %>
+            <% courses.forEach(function(c) { %>
+                <option value="<%= c.code %>"><%= c.code %> - <%= c.title %></option>
+            <% }); %>
+        <% } %>
+    </select>
+    <select id="filterStatus" onchange="filterTable()">
+        <option value="">All Status</option>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+        <option value="late">Late</option>
+    </select>
+    <input type="date" id="filterDate" onchange="filterTable()">
+</div>
+
+<!-- Attendance Table -->
+<div class="card-custom">
+    <div class="card-header-custom">
+        <h5><i class="bi bi-table me-2"></i>Attendance Records</h5>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-custom" id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Course</th>
+                    <th>Exam Date</th>
+                    <th>Venue</th>
+                    <th>Status</th>
+                    <th>Scanned At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof records !== 'undefined' && records.length > 0) { %>
+                    <% records.forEach(function(record, index) { %>
+                        <tr data-course="<%= record.course_code %>" data-status="<%= record.status %>">
+                            <td><%= index + 1 %></td>
+                            <td><strong><%= record.course_code %></strong> - <%= record.course_title %></td>
+                            <td><%= record.exam_date %></td>
+                            <td><%= record.venue %></td>
+                            <td><span class="status-badge <%= record.status %>"><%= record.status %></span></td>
+                            <td><%= record.scanned_at || '—' %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <i class="bi bi-clipboard-x"></i>
+                                <h5>No Records</h5>
+                                <p>No attendance records found.</p>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

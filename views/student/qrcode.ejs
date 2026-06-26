@@ -1,0 +1,89 @@
+<!-- Student QR Code Scanner Page -->
+<link rel="stylesheet" href="/css/pages/qrcode.css">
+<div class="row g-4">
+    <div class="col-lg-7">
+        <!-- Scanner -->
+        <div class="scanner-container">
+            <div class="scanner-header">
+                <h5><i class="bi bi-camera me-2"></i>Scan Exam QR Code</h5>
+                <p class="text-muted small mb-0">Scan the QR code displayed by your lecturer or admin to record attendance.</p>
+            </div>
+            <div class="scanner-viewfinder">
+                <div id="reader"></div>
+            </div>
+            <div class="scanner-controls">
+                <div class="scanner-status">
+                    <span class="status-indicator" id="scannerStatus"></span>
+                    <span id="scannerStatusText">Scanner Ready</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn-custom btn-primary-custom" id="startScanBtn" onclick="startScanner()">
+                        <i class="bi bi-play-fill"></i> Start Camera
+                    </button>
+                    <button class="btn-custom btn-outline-primary-custom" id="stopScanBtn" onclick="stopScanner()" style="display:none;">
+                        <i class="bi bi-stop-fill"></i> Stop
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <!-- Scan Verification / Result -->
+        <div class="card-custom mb-3" id="scanResultCard" style="display:none;">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-person-check me-2"></i>Verification Result</h5>
+            </div>
+            <div class="card-body-custom">
+                <div class="verification-status" id="verificationStatus">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <h6 id="verificationMessage">Verified</h6>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3" id="studentInfoDisplay">
+                    <div class="student-passport" style="width:80px; height:80px; border-radius:var(--radius-lg); overflow:hidden; border:2px solid var(--color-border-light);">
+                        <% if (student.passport_url) { %>
+                            <img src="/uploads/<%= student.passport_url %>" alt="Student" style="width:100%; height:100%; object-fit:cover;">
+                        <% } else { %>
+                            <div class="d-flex align-items-center justify-content-center bg-light text-primary h-100 w-100 fw-bold" style="font-size: 24px;">
+                                <%= student.first_name.charAt(0) %><%= student.last_name.charAt(0) %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div>
+                        <h5 style="margin-bottom:4px;"><%= student.first_name %> <%= student.last_name %></h5>
+                        <p style="margin-bottom:2px; font-size: var(--font-size-sm); color: var(--color-text);"><%= student.matric_number %></p>
+                        <p style="margin-bottom:0; font-size: var(--font-size-sm); color: var(--color-text);"><%= student.department_name || '' %></p>
+                    </div>
+                </div>
+                <ul class="qr-details-list" id="examDetailsList">
+                    <li><span class="label">Course</span><span class="value" id="examCourse"></span></li>
+                    <li><span class="label">Venue</span><span class="value" id="examVenue"></span></li>
+                    <li><span class="label">Date</span><span class="value" id="examDate"></span></li>
+                </ul>
+                <div class="d-flex gap-2 mt-3" id="actionButtons">
+                    <button class="btn-custom btn-success-custom flex-fill" id="approveBtn" onclick="confirmAttendance()">
+                        <i class="bi bi-check-lg"></i> Confirm Attendance
+                    </button>
+                    <button class="btn-custom btn-outline-primary-custom flex-fill" id="cancelBtn" onclick="resetResultCard()">
+                        <i class="bi bi-arrow-counterclockwise"></i> Rescan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Info -->
+        <div class="card-custom">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-info-circle me-2"></i>Instructions</h5>
+            </div>
+            <div class="card-body-custom">
+                <ol class="ps-3 mb-0 text-muted" style="line-height: 1.6;">
+                    <li>Ensure you are in the examination hall.</li>
+                    <li>Click **Start Camera** and grant camera permissions.</li>
+                    <li>Align your camera frame with the QR code shown on the lecturer's or admin's screen.</li>
+                    <li>Once successfully read, verify the course details and click **Confirm Attendance**.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

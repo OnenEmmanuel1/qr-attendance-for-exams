@@ -1,0 +1,88 @@
+<!-- Register Page -->
+<link rel="stylesheet" href="/css/pages/login.css">
+<link rel="stylesheet" href="/css/pages/register.css">
+<div class="auth-page">
+    <div class="auth-container" style="max-width: 520px;">
+        <div class="auth-logo">
+            <div class="logo-icon">
+                <i class="bi bi-qr-code-scan"></i>
+            </div>
+            <h2>Create Account</h2>
+            <p>Register to get started with QR Attendance</p>
+        </div>
+
+        <div class="auth-card">
+            <form action="/auth/register" method="POST" id="registerForm">
+                <input type="hidden" name="role" value="student">
+
+                <!-- Name Fields -->
+                <div class="register-name-row">
+                    <div class="form-group-custom">
+                        <label for="firstName">First Name <span class="required-mark">*</span></label>
+                        <input type="text" id="firstName" name="first_name" class="form-control-custom" placeholder="First name" required value="<%= typeof first_name !== 'undefined' ? first_name : '' %>">
+                    </div>
+                    <div class="form-group-custom">
+                        <label for="lastName">Last Name <span class="required-mark">*</span></label>
+                        <input type="text" id="lastName" name="last_name" class="form-control-custom" placeholder="Last name" required value="<%= typeof last_name !== 'undefined' ? last_name : '' %>">
+                    </div>
+                </div>
+
+                <!-- Matric Number -->
+                <div class="form-group-custom">
+                    <label for="matricNumber">Matric Number <span class="required-mark">*</span></label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-card-text input-icon"></i>
+                        <input type="text" id="matricNumber" name="matric_number" class="form-control-custom" placeholder="Enter matric number (e.g. 18/CSC/123)" required value="<%= typeof matric_number !== 'undefined' ? matric_number : '' %>">
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group-custom">
+                    <label for="registerEmail">Email Address <span class="required-mark">*</span></label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-envelope input-icon"></i>
+                        <input type="email" id="registerEmail" name="email" class="form-control-custom" placeholder="Enter your email" required value="<%= typeof email !== 'undefined' ? email : '' %>">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group-custom">
+                    <label for="registerPassword">Password <span class="required-mark">*</span></label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-lock input-icon"></i>
+                        <input type="password" id="registerPassword" name="password" class="form-control-custom" placeholder="Create a password (min 6 characters)" required minlength="6">
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group-custom">
+                    <label for="confirmPassword">Confirm Password <span class="required-mark">*</span></label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirm_password" class="form-control-custom" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="register-terms">
+                    <div class="form-check-custom">
+                        <input type="checkbox" id="agreeTerms" name="agree_terms" required>
+                        <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-custom btn-primary-custom btn-auth">
+                    <i class="bi bi-person-plus"></i> Create Account
+                </button>
+            </form>
+        </div>
+
+        <div class="auth-footer">
+            Already have an account? <a href="/auth/login">Sign In</a>
+        </div>
+
+        <div class="auth-back-link">
+            <a href="/"><i class="bi bi-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+</div>

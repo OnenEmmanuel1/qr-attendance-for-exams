@@ -1,0 +1,359 @@
+/* ═══════════════════════════════════════════════════════════
+   Dashboard Layout Styles — QR Exam Attendance System
+   Shared across student, lecturer, and admin dashboards
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Dashboard Layout ───────────────────────────────────── */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────── */
+.dashboard-sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--color-white);
+    border-right: 1px solid var(--color-border-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1030;
+    display: flex;
+    flex-direction: column;
+    transition: width var(--transition-base);
+    overflow: hidden;
+}
+
+.sidebar-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-height: var(--navbar-height);
+}
+
+.sidebar-header .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+}
+
+.sidebar-header .sidebar-brand-icon {
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-md);
+    flex-shrink: 0;
+}
+
+.sidebar-header .sidebar-brand-text {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-heading);
+    line-height: 1.2;
+}
+
+.sidebar-header .sidebar-brand-text small {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    font-weight: var(--font-weight-normal);
+}
+
+/* ─── Sidebar Navigation ────────────────────────────────── */
+.sidebar-nav {
+    flex: 1;
+    padding: var(--spacing-md) 0;
+}
+
+.sidebar-nav-section {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.sidebar-nav-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sidebar-nav-label {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-nav-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav-item a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 10px var(--spacing-xl);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border-left: 3px solid transparent;
+}
+
+.sidebar-nav-item a:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.sidebar-nav-item a.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.sidebar-nav-item a i {
+    width: 20px;
+    text-align: center;
+    font-size: var(--font-size-sm);
+}
+
+.sidebar-nav-item .nav-badge {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: var(--radius-xl);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ─── Sidebar Footer ────────────────────────────────────── */
+.sidebar-footer {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.sidebar-user .sidebar-user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.sidebar-user .sidebar-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sidebar-user .sidebar-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.sidebar-user .sidebar-user-name {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-user .sidebar-user-role {
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    text-transform: capitalize;
+}
+
+.sidebar-logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: none;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.sidebar-logout-btn:hover {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+    background-color: var(--color-danger-light);
+}
+
+/* ─── Dashboard Main Content ─────────────────────────────── */
+.dashboard-main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    background-color: var(--color-background);
+    min-height: 100vh;
+}
+
+/* ─── Dashboard Top Bar ──────────────────────────────────── */
+.dashboard-topbar {
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border-light);
+    padding: 0 var(--spacing-xl);
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    color: var(--color-heading);
+    cursor: pointer;
+}
+
+.topbar-title h5 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.topbar-title .breadcrumb {
+    font-size: var(--font-size-xs);
+    margin: 0;
+    padding: 0;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* ─── Dashboard Content ──────────────────────────────────── */
+.dashboard-content {
+    padding: var(--spacing-xl);
+}
+
+/* ─── Stats Grid ─────────────────────────────────────────── */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ─── Content Grid ───────────────────────────────────────── */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.content-grid-equal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ─── Mobile Sidebar Overlay ─────────────────────────────── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1025;
+}
+
+/* ─── Responsive Dashboard ───────────────────────────────── */
+@media (max-width: 991px) {
+    .dashboard-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .dashboard-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .dashboard-main {
+        margin-left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-grid-equal {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-content {
+        padding: var(--spacing-md);
+    }
+}

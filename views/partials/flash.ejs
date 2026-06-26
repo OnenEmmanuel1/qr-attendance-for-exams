@@ -1,0 +1,29 @@
+<!-- Flash Messages Container -->
+<div class="flash-container" id="flashContainer">
+    <% if (typeof success_msg !== 'undefined' && success_msg.length > 0) { %>
+        <% success_msg.forEach(function(msg) { %>
+            <div class="flash-message success">
+                <span><i class="bi bi-check-circle-fill me-2"></i><%= msg %></span>
+                <button class="close-flash" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        <% }); %>
+    <% } %>
+
+    <% if (typeof error_msg !== 'undefined' && error_msg.length > 0) { %>
+        <% error_msg.forEach(function(msg) { %>
+            <div class="flash-message error">
+                <span><i class="bi bi-exclamation-circle-fill me-2"></i><%= msg %></span>
+                <button class="close-flash" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        <% }); %>
+    <% } %>
+
+    <% if (typeof error !== 'undefined' && error.length > 0) { %>
+        <% error.forEach(function(msg) { %>
+            <div class="flash-message error">
+                <span><i class="bi bi-exclamation-circle-fill me-2"></i><%= msg %></span>
+                <button class="close-flash" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        <% }); %>
+    <% } %>
+</div>

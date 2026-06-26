@@ -1,0 +1,107 @@
+<!-- Student Dashboard -->
+<link rel="stylesheet" href="/css/pages/dashboard.css">
+<div class="welcome-card mb-4">
+    <div>
+        <h3>Welcome back, <%= user.first_name %>! 👋</h3>
+        <p>Here's an overview of your attendance and upcoming examinations.</p>
+    </div>
+    <div class="welcome-icon">
+        <i class="bi bi-mortarboard"></i>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon primary">
+            <i class="bi bi-journal-text"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Upcoming Exams</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.upcomingExams || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon success">
+            <i class="bi bi-check-circle"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Exams Attended</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.attended || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon danger">
+            <i class="bi bi-x-circle"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Exams Missed</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.missed || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon accent">
+            <i class="bi bi-qr-code"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Active QR Codes</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.activeQR || 0 : 0 %></div>
+        </div>
+    </div>
+</div>
+
+<div class="content-grid">
+    <!-- Upcoming Examinations -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-calendar-event me-2"></i>Upcoming Examinations</h5>
+            <a href="/student/attendance" class="btn-custom btn-sm-custom btn-light-custom">View All</a>
+        </div>
+        <div class="card-body-custom">
+            <% if (typeof upcomingExams !== 'undefined' && upcomingExams.length > 0) { %>
+                <% upcomingExams.forEach(function(exam) { %>
+                    <div class="activity-item">
+                        <div class="activity-dot primary"></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><%= exam.course_code %> - <%= exam.course_title %></div>
+                            <div class="activity-time"><i class="bi bi-calendar me-1"></i><%= exam.exam_date %> | <i class="bi bi-geo-alt me-1"></i><%= exam.venue %></div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-calendar-x"></i>
+                    <h5>No Upcoming Exams</h5>
+                    <p>You don't have any upcoming examinations scheduled.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Recent Attendance -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-clock-history me-2"></i>Recent Attendance</h5>
+        </div>
+        <div class="card-body-custom">
+            <% if (typeof recentAttendance !== 'undefined' && recentAttendance.length > 0) { %>
+                <% recentAttendance.forEach(function(record) { %>
+                    <div class="activity-item">
+                        <div class="activity-dot <%= record.status === 'present' ? 'success' : 'danger' %>"></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><%= record.course_code %></div>
+                            <div class="activity-time"><%= record.scanned_at %></div>
+                        </div>
+                        <span class="status-badge <%= record.status %>"><%= record.status %></span>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-clipboard-x"></i>
+                    <h5>No Records</h5>
+                    <p>No attendance records found yet.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

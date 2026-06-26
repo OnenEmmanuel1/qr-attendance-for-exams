@@ -1,0 +1,112 @@
+<!-- Lecturer Dashboard -->
+<link rel="stylesheet" href="/css/pages/dashboard.css">
+<div class="welcome-card mb-4">
+    <div>
+        <h3>Welcome, <%= user.first_name %>! 👋</h3>
+        <p>Manage your examination attendance scanning and records.</p>
+    </div>
+    <div class="welcome-icon">
+        <i class="bi bi-person-workspace"></i>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon primary">
+            <i class="bi bi-journal-text"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Assigned Exams</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.assignedExams || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon success">
+            <i class="bi bi-camera"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Scans Today</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.scansToday || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon accent">
+            <i class="bi bi-people"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Total Students Scanned</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.totalScanned || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon warning">
+            <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Suspicious Attempts</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.suspicious || 0 : 0 %></div>
+        </div>
+    </div>
+</div>
+
+<div class="content-grid">
+    <!-- Upcoming Exams -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-calendar-event me-2"></i>My Assigned Examinations</h5>
+            <a href="/lecturer/scanner" class="btn-custom btn-sm-custom btn-primary-custom">
+                <i class="bi bi-camera"></i> Open Scanner
+            </a>
+        </div>
+        <div class="card-body-custom">
+            <% if (typeof examinations !== 'undefined' && examinations.length > 0) { %>
+                <% examinations.forEach(function(exam) { %>
+                    <div class="activity-item">
+                        <div class="activity-dot <%= exam.status === 'ongoing' ? 'success' : 'primary' %>"></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><%= exam.course_code %> - <%= exam.course_title %></div>
+                            <div class="activity-time"><i class="bi bi-calendar me-1"></i><%= exam.exam_date %> | <i class="bi bi-geo-alt me-1"></i><%= exam.venue %></div>
+                        </div>
+                        <span class="status-badge <%= exam.status %>"><%= exam.status %></span>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-calendar-x"></i>
+                    <h5>No Examinations</h5>
+                    <p>You haven't been assigned any examinations yet.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Recent Scans -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-clock-history me-2"></i>Recent Scans</h5>
+        </div>
+        <div class="card-body-custom">
+            <% if (typeof recentScans !== 'undefined' && recentScans.length > 0) { %>
+                <% recentScans.forEach(function(scan) { %>
+                    <div class="activity-item">
+                        <div class="activity-dot <%= scan.action === 'scan_success' ? 'success' : 'danger' %>"></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><%= scan.student_name %></div>
+                            <div class="activity-time"><%= scan.scanned_at %></div>
+                        </div>
+                        <span class="status-badge <%= scan.action === 'scan_success' ? 'present' : 'absent' %>">
+                            <%= scan.action === 'scan_success' ? 'Success' : 'Failed' %>
+                        </span>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-qr-code-scan"></i>
+                    <h5>No Recent Scans</h5>
+                    <p>Start scanning to see recent activity.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+node_modules/
+.env
+uploads/passports/*
+uploads/qrcodes/*
+uploads/reports/*
+!uploads/passports/.gitkeep
+!uploads/qrcodes/.gitkeep
+!uploads/reports/.gitkeep
+config/seed.js
+

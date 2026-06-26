@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════════════════════
+   CSS Custom Properties — QR Exam Attendance System
+   Approved Color Palette (Solid Colors Only — No Gradients)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+    /* ─── Colors (Strictly 5 Colors Only) ────────────────── */
+    --color-primary: #073EB8;
+    --color-primary-hover: rgba(7, 62, 184, 0.85);
+    --color-primary-light: rgba(7, 62, 184, 0.08);
+    --color-accent: #540CFA;
+    --color-accent-hover: rgba(84, 12, 250, 0.85);
+    --color-accent-light: rgba(84, 12, 250, 0.08);
+    --color-heading: #000000;
+    --color-text: #435E6E;
+    --color-text-light: rgba(67, 94, 110, 0.7);
+    --color-background: #FDFDFD;
+    --color-white: #FDFDFD; /* Map white directly to background color to enforce theme */
+    --color-border: rgba(67, 94, 110, 0.06);
+    --color-border-light: rgba(67, 94, 110, 0.02);
+    
+    /* Semantic mappings to enforce strict colors */
+    --color-success: #073EB8;
+    --color-success-light: rgba(7, 62, 184, 0.08);
+    --color-danger: #540CFA;
+    --color-danger-light: rgba(84, 12, 250, 0.08);
+    --color-warning: #435E6E;
+    --color-warning-light: rgba(67, 94, 110, 0.1);
+    --color-info: #073EB8;
+    --color-info-light: rgba(7, 62, 184, 0.08);
+
+    /* ─── Typography ─────────────────────────────────────── */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.5rem;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    /* ─── Spacing ────────────────────────────────────────── */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+
+    /* ─── Border Radius ──────────────────────────────────── */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 50%;
+
+    /* ─── Shadows (solid only — no gradient-based) ────── */
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 12px 20px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 24px 35px rgba(0, 0, 0, 0.08);
+
+    /* ─── Transitions ────────────────────────────────────── */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* ─── Sidebar ────────────────────────────────────────── */
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 70px;
+    --navbar-height: 64px;
+}

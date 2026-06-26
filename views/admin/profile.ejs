@@ -1,0 +1,80 @@
+<!-- Admin Profile -->
+<link rel="stylesheet" href="/css/pages/profile.css">
+<div class="profile-header">
+    <div class="profile-avatar-section">
+        <div class="profile-avatar">
+            <% if (admin.passport_url) { %>
+                <img src="/uploads/<%= admin.passport_url %>" alt="<%= admin.first_name %>">
+            <% } else { %>
+                <%= admin.first_name.charAt(0).toUpperCase() %><%= admin.last_name.charAt(0).toUpperCase() %>
+            <% } %>
+        </div>
+        <label for="passportUpload" class="profile-avatar-upload" title="Upload Photo">
+            <i class="bi bi-camera"></i>
+        </label>
+    </div>
+    <div class="profile-info">
+        <h3><%= admin.first_name %> <%= admin.last_name %></h3>
+        <span class="profile-role"><%= user.role %></span>
+        <div class="profile-meta">
+            <span class="profile-meta-item"><i class="bi bi-envelope"></i> <%= admin.email %></span>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Form -->
+<div class="profile-form-section">
+    <h4>Personal Information</h4>
+    <p class="section-description">Update your personal details and profile information.</p>
+
+    <form action="/admin/profile" method="POST" enctype="multipart/form-data" id="profileForm">
+        <input type="file" id="passportUpload" name="passport" accept="image/jpeg,image/png,image/jpg" style="display:none;" onchange="this.form.submit()">
+
+        <div class="profile-form-grid">
+            <div class="form-group-custom">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="first_name" class="form-control-custom" value="<%= admin.first_name %>" required>
+            </div>
+            <div class="form-group-custom">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="last_name" class="form-control-custom" value="<%= admin.last_name %>" required>
+            </div>
+            <div class="form-group-custom">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control-custom" value="<%= admin.email %>" disabled>
+            </div>
+            <div class="form-group-custom">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" class="form-control-custom" value="<%= admin.phone || '' %>" placeholder="Enter phone number">
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn-custom btn-primary-custom">
+                <i class="bi bi-check-lg"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Change Password -->
+<div class="profile-form-section">
+    <h4>Change Password</h4>
+    <p class="section-description">Update your account password for security.</p>
+
+    <form action="/admin/change-password" method="POST" id="changePasswordForm">
+        <div class="profile-form-grid">
+            <div class="form-group-custom">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="current_password" class="form-control-custom" placeholder="Enter current password" required>
+            </div>
+            <div class="form-group-custom">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="new_password" class="form-control-custom" placeholder="Enter new password" required minlength="6">
+            </div>
+        </div>
+        <button type="submit" class="btn-custom btn-primary-custom">
+            <i class="bi bi-lock"></i> Update Password
+        </button>
+    </form>
+</div>

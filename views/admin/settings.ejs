@@ -1,0 +1,219 @@
+<!-- Admin Settings -->
+<link rel="stylesheet" href="/css/admin/settings.css">
+<div class="users-page-header">
+    <h4><i class="bi bi-gear me-2"></i>System Settings</h4>
+</div>
+
+<div class="settings-layout">
+    <div class="settings-sidebar">
+        <ul class="settings-nav">
+            <li><a href="#general" class="active"><i class="bi bi-sliders"></i> General</a></li>
+            <li><a href="#departments"><i class="bi bi-building"></i> Departments</a></li>
+            <li><a href="#courses"><i class="bi bi-book"></i> Courses</a></li>
+            <li><a href="#security"><i class="bi bi-shield-lock"></i> Security</a></li>
+        </ul>
+    </div>
+
+    <div class="settings-content">
+        <!-- General Settings -->
+        <div class="settings-section" id="general">
+            <h4>General Settings</h4>
+            <p class="section-desc">Configure basic system settings.</p>
+            <form action="/admin/settings/general" method="POST">
+                <div class="settings-row">
+                    <div class="setting-info">
+                        <h6>Application Name</h6>
+                        <p>The name displayed across the application.</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="text" name="app_name" class="form-control-custom" value="<%= appName %>">
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div class="setting-info">
+                        <h6>QR Code Expiry (Hours)</h6>
+                        <p>How long QR codes remain valid after generation.</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="number" name="qr_expiry" class="form-control-custom" value="<%= typeof settings !== 'undefined' ? settings.qr_expiry || 24 : 24 %>" min="1" max="72">
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div class="setting-info">
+                        <h6>Session Timeout (Hours)</h6>
+                        <p>Auto-logout after inactivity period.</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="number" name="session_timeout" class="form-control-custom" value="24" min="1" max="72">
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-check-lg"></i> Save Settings</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Department Management -->
+        <div class="settings-section" id="departments">
+            <h4>Department Management</h4>
+            <p class="section-desc">Manage academic departments.</p>
+
+            <form action="/admin/settings/departments" method="POST" class="d-flex gap-2 mb-4">
+                <input type="text" name="name" class="form-control-custom" placeholder="Department name" required>
+                <input type="text" name="code" class="form-control-custom" placeholder="Code (e.g., CSC)" required style="max-width: 120px;">
+                <button type="submit" class="btn-custom btn-primary-custom" style="white-space: nowrap;">
+                    <i class="bi bi-plus"></i> Add
+                </button>
+            </form>
+
+            <div class="table-wrapper">
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Department Name</th>
+                            <th>Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (typeof departments !== 'undefined' && departments.length > 0) { %>
+                            <% departments.forEach(function(dept, i) { %>
+                                <tr>
+                                    <td><%= i + 1 %></td>
+                                    <td><%= dept.name %></td>
+                                    <td><%= dept.code %></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn-icon danger" onclick="deleteDepartment(<%= dept.id %>)"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr><td colspan="4" class="text-center" style="padding: var(--spacing-xl); color: var(--color-text);">No departments added yet.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Course Management -->
+        <div class="settings-section" id="courses">
+            <h4>Course Management</h4>
+            <p class="section-desc">Manage academic courses.</p>
+
+            <form action="/admin/settings/courses" method="POST" class="row g-2 mb-4">
+                <div class="col-md-3">
+                    <input type="text" name="code" class="form-control-custom" placeholder="Course code" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="title" class="form-control-custom" placeholder="Course title" required>
+                </div>
+                <div class="col-md-2">
+                    <select name="department_id" class="form-select-custom" required>
+                        <option value="">Department</option>
+                        <% if (typeof departments !== 'undefined') { %>
+                            <% departments.forEach(function(dept) { %>
+                                <option value="<%= dept.id %>"><%= dept.name %></option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <input type="number" name="credit_units" class="form-control-custom" placeholder="CU" value="3" min="1" max="6">
+                </div>
+                <div class="col-md-2">
+                    <select name="level" class="form-select-custom">
+                        <option value="">Level</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-plus"></i></button>
+                </div>
+            </form>
+
+            <div class="table-wrapper">
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Title</th>
+                            <th>Department</th>
+                            <th>Level</th>
+                            <th>CU</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (typeof courses !== 'undefined' && courses.length > 0) { %>
+                            <% courses.forEach(function(course) { %>
+                                <tr>
+                                    <td><strong><%= course.code %></strong></td>
+                                    <td><%= course.title %></td>
+                                    <td><%= course.department_name || '—' %></td>
+                                    <td><%= course.level || '—' %></td>
+                                    <td><%= course.credit_units %></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn-icon danger" onclick="deleteCourse(<%= course.id %>)"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr><td colspan="6" class="text-center" style="padding: var(--spacing-xl); color: var(--color-text);">No courses added yet.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="settings-section" id="security">
+            <h4>Security Settings</h4>
+            <p class="section-desc">Configure security and access controls.</p>
+            <div class="settings-row">
+                <div class="setting-info">
+                    <h6>Duplicate Scan Prevention</h6>
+                    <p>Prevent the same QR code from being scanned twice for the same exam.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-row">
+                <div class="setting-info">
+                    <h6>Log Suspicious Activity</h6>
+                    <p>Record all failed scan attempts and suspicious patterns.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-row">
+                <div class="setting-info">
+                    <h6>QR Code Encryption</h6>
+                    <p>Encrypt QR code data to prevent tampering.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

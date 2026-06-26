@@ -1,0 +1,66 @@
+<!-- Dashboard Top Bar -->
+<header class="dashboard-topbar">
+    <div class="topbar-left">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+        </button>
+        <div class="topbar-title">
+            <h5 class="mb-0"><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Dashboard' %></h5>
+            <nav aria-label="breadcrumb" class="mt-1">
+                <ol class="breadcrumb mb-0" style="font-size: var(--font-size-xs); gap: var(--spacing-xs); --bs-breadcrumb-divider: '>';">
+                    <li class="breadcrumb-item"><a href="/<%= user ? user.role : '' %>/dashboard" style="color: var(--color-text-light);"><i class="bi bi-house-door"></i> Home</a></li>
+                    <% 
+                    let paths = currentPath.split('/').filter(p => p && p !== (user ? user.role : '') && p !== 'dashboard');
+                    if (paths.length > 0) {
+                        paths.forEach(function(pathSeg, index) { 
+                            let prettyName = pathSeg.charAt(0).toUpperCase() + pathSeg.slice(1).replace(/-/g, ' ');
+                            let isLast = index === paths.length - 1;
+                            if (isLast) { %>
+                                <li class="breadcrumb-item active" aria-current="page" style="color: var(--color-text);"><%= prettyName %></li>
+                            <% } else { %>
+                                <li class="breadcrumb-item" style="color: var(--color-text-light);"><%= prettyName %></li>
+                            <% }
+                        });
+                    } 
+                    %>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="topbar-right">
+        <!-- Notifications -->
+        <button class="nav-notification-btn" id="notificationBtn" title="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+        </button>
+
+        <!-- User Menu -->
+        <div class="user-menu" id="topbarUserMenu">
+            <button class="user-menu-trigger" id="topbarUserTrigger">
+                <div class="user-avatar">
+                    <% if (user && user.passport_url) { %>
+                        <img src="/uploads/<%= user.passport_url %>" alt="<%= user.first_name %>">
+                    <% } else { %>
+                        <%= user ? user.first_name.charAt(0).toUpperCase() : 'U' %>
+                    <% } %>
+                </div>
+                <div class="user-menu-info">
+                    <div class="user-menu-name"><%= user ? user.first_name : 'User' %></div>
+                    <div class="user-menu-role"><%= user ? user.role : '' %></div>
+                </div>
+            </button>
+            <div class="user-dropdown" id="topbarUserDropdown">
+                <% if (user && user.role === 'student') { %>
+                    <a href="/student/profile"><i class="bi bi-person"></i> Profile</a>
+                <% } else if (user && user.role === 'lecturer') { %>
+                    <a href="/lecturer/profile"><i class="bi bi-person"></i> Profile</a>
+                <% } else if (user && user.role === 'admin') { %>
+                    <a href="/admin/profile"><i class="bi bi-person"></i> Profile</a>
+                    <a href="/admin/settings"><i class="bi bi-gear"></i> Settings</a>
+                <% } %>
+                <div class="dropdown-divider"></div>
+                <a href="/auth/logout" class="logout-btn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+        </div>
+    </div>
+</header>

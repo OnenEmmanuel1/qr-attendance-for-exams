@@ -1,0 +1,283 @@
+/* ═══════════════════════════════════════════════════════════
+   Table Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Table Wrapper ──────────────────────────────────────── */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+}
+
+/* ─── Base Table ─────────────────────────────────────────── */
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+
+.table-custom thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-background);
+    color: var(--color-heading);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border-light);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table-custom tbody td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-text);
+    vertical-align: middle;
+}
+
+.table-custom tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-custom tbody tr:hover {
+    background-color: var(--color-primary-light);
+}
+
+/* ─── Table Status Badges ────────────────────────────────── */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.status-badge.present {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.status-badge.absent {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.status-badge.late {
+    background-color: var(--color-warning-light);
+    color: #856404;
+}
+
+.status-badge.scheduled {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.status-badge.ongoing {
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.status-badge.completed {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.status-badge.cancelled {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.status-badge.active {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.status-badge.inactive {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+/* ─── Status Dot ─────────────────────────────────────────── */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+/* ─── Table Actions ──────────────────────────────────────── */
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.table-actions .btn-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    transition: all var(--transition-fast);
+}
+
+.table-actions .btn-icon:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.table-actions .btn-icon.danger:hover {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+    background-color: var(--color-danger-light);
+}
+
+/* ─── Table User Info ────────────────────────────────────── */
+.table-user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.table-user-info .user-thumb {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.table-user-info .user-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.table-user-info .user-details .name {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-heading);
+    font-size: var(--font-size-sm);
+}
+
+.table-user-info .user-details .email {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
+/* ─── Table Toolbar ──────────────────────────────────────── */
+.table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.table-toolbar .table-search {
+    position: relative;
+    max-width: 320px;
+    flex: 1;
+}
+
+.table-toolbar .table-search input {
+    width: 100%;
+    padding: 8px 14px 8px 36px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    outline: none;
+}
+
+.table-toolbar .table-search input:focus {
+    border-color: var(--color-primary);
+}
+
+.table-toolbar .table-search i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+}
+
+.table-toolbar .table-actions-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* ─── Pagination ─────────────────────────────────────────── */
+.pagination-custom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
+    font-size: var(--font-size-sm);
+}
+
+.pagination-custom .pagination-info {
+    color: var(--color-text);
+}
+
+.pagination-custom .pagination-buttons {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.pagination-custom .pagination-buttons button {
+    padding: 6px 12px;
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-lg);
+    background: var(--color-background);
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-fast);
+}
+
+.pagination-custom .pagination-buttons button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.pagination-custom .pagination-buttons button.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.pagination-custom .pagination-buttons button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: var(--color-border);
+    color: var(--color-text-light);
+}
+
+/* Pagination helper classes */
+tr.pagination-hidden {
+    display: none !important;
+}

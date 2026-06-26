@@ -1,0 +1,98 @@
+<!-- Public Navigation Bar -->
+<nav class="top-navbar">
+    <a href="/" class="navbar-brand-custom">
+        <div class="brand-icon">
+            <i class="bi bi-qr-code-scan"></i>
+        </div>
+        <div class="brand-text">QR <span>Attendance</span></div>
+    </a>
+
+
+    <div class="nav-links" id="navLinks">
+        <!-- Close button for mobile menu -->
+        <button class="mobile-menu-close mobile-only" id="mobileMenuClose" aria-label="Close navigation">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <!-- Desktop Navigation Links (hidden on mobile, replaced by bottom bar) -->
+        <ul class="nav-links-list">
+            <li class="nav-link-item <%= currentPath === '/' ? 'active' : '' %>">
+                <a href="/"><i class="bi bi-house"></i> Home</a>
+            </li>
+            <li class="nav-link-item <%= currentPath === '/about' ? 'active' : '' %>">
+                <a href="/about"><i class="bi bi-info-circle"></i> About</a>
+            </li>
+            <li class="nav-link-item <%= currentPath === '/contact' ? 'active' : '' %>">
+                <a href="/contact"><i class="bi bi-envelope"></i> Contact</a>
+            </li>
+        </ul>
+
+        <% if (!user) { %>
+            <!-- Login & Register inside hamburger menu (only shown on mobile) -->
+            <div class="nav-auth-buttons mobile-only">
+                <a href="/auth/login" class="btn-login-mobile">Login</a>
+                <div class="auth-divider"></div>
+                <a href="/auth/register" class="btn-register-mobile">Register</a>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="nav-right">
+        <% if (user) { %>
+            <!-- Logged in user menu -->
+            <div class="user-menu" id="userMenu">
+                <button class="user-menu-trigger" id="userMenuTrigger">
+                    <div class="user-avatar">
+                        <%= user.first_name ? user.first_name.charAt(0).toUpperCase() : 'U' %>
+                    </div>
+                    <div class="user-menu-info">
+                        <div class="user-menu-name"><%= user.first_name || 'User' %></div>
+                        <div class="user-menu-role"><%= user.role %></div>
+                    </div>
+                    <i class="bi bi-chevron-down" style="font-size: 12px; color: var(--color-text);"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="/<%= user.role %>/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    <% if (user.role === 'student') { %>
+                        <a href="/student/profile"><i class="bi bi-person"></i> Profile</a>
+                    <% } else if (user.role === 'lecturer') { %>
+                        <a href="/lecturer/profile"><i class="bi bi-person"></i> Profile</a>
+                    <% } else if (user.role === 'admin') { %>
+                        <a href="/admin/profile"><i class="bi bi-person"></i> Profile</a>
+                        <a href="/admin/settings"><i class="bi bi-gear"></i> Settings</a>
+                    <% } %>
+                    <div class="dropdown-divider"></div>
+                    <a href="/auth/logout" class="logout-btn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                </div>
+            </div>
+        <% } else { %>
+            <!-- Auth buttons for guests (desktop view only) -->
+            <div class="nav-auth-buttons desktop-only">
+                <a href="/auth/login" class="btn-login">Login</a>
+                <a href="/auth/register" class="btn-register">Register</a>
+            </div>
+
+            <!-- Hamburger menu toggle button (only visible for guests on mobile) -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+        <% } %>
+    </div>
+</nav>
+
+<!-- Mobile Bottom Navigation Bar (Visible only on mobile for guest views) -->
+<% if (!user) { %>
+<nav class="bottom-navbar">
+    <a href="/" class="bottom-nav-item <%= currentPath === '/' ? 'active' : '' %>">
+        <i class="bi bi-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="/about" class="bottom-nav-item <%= currentPath === '/about' ? 'active' : '' %>">
+        <i class="bi bi-info-circle"></i>
+        <span>About</span>
+    </a>
+    <a href="/contact" class="bottom-nav-item <%= currentPath === '/contact' ? 'active' : '' %>">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+    </a>
+</nav>
+<% } %>

@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════
+   Login Page Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    background-color: var(--color-background);
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.auth-logo .logo-icon {
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-lg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-logo h2 {
+    font-size: var(--font-size-xl);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.auth-logo p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: 0;
+}
+
+.auth-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.auth-card .auth-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.auth-card .form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+}
+
+.auth-card .forgot-link {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+}
+
+.auth-card .forgot-link:hover {
+    text-decoration: underline;
+}
+
+.auth-card .btn-auth {
+    width: 100%;
+    padding: 12px;
+    font-size: var(--font-size-base);
+}
+
+.auth-card .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+}
+
+.auth-card .auth-divider::before,
+.auth-card .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border-light);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.auth-footer a {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.auth-back-link {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.auth-back-link a {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.auth-back-link a:hover {
+    color: var(--color-primary);
+}

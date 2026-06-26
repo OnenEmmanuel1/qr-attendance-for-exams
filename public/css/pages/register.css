@@ -1,0 +1,87 @@
+/* ═══════════════════════════════════════════════════════════
+   Register Page Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* Register uses same base as login (auth-page, auth-card, etc.) */
+/* Additional register-specific styles below */
+
+.register-role-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+}
+
+.role-option {
+    position: relative;
+}
+
+.role-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: center;
+}
+
+.role-option label i {
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+}
+
+.role-option label span {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.role-option input[type="radio"]:checked + label {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.role-option input[type="radio"]:checked + label i,
+.role-option input[type="radio"]:checked + label span {
+    color: var(--color-primary);
+}
+
+.register-name-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.register-terms {
+    margin-bottom: var(--spacing-lg);
+}
+
+.register-terms label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.register-terms a {
+    color: var(--color-primary);
+}
+
+@media (max-width: 576px) {
+    .register-role-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .register-name-row {
+        grid-template-columns: 1fr;
+    }
+}

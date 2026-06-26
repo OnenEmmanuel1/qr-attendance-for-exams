@@ -1,0 +1,230 @@
+<!-- Admin Lecturer Management -->
+<link rel="stylesheet" href="/css/admin/users.css">
+<div class="users-page-header">
+    <h4><i class="bi bi-person-workspace me-2"></i>Lecturer Management</h4>
+    <button class="btn-custom btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addLecturerModal">
+        <i class="bi bi-person-plus"></i> Add Lecturer
+    </button>
+</div>
+
+<div class="card-custom">
+    <div class="card-header-custom">
+        <div class="table-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="searchLecturer" placeholder="Search lecturers..." class="form-control-custom" onkeyup="searchTable()">
+        </div>
+        <select id="filterDept" class="form-select-custom" style="max-width: 200px;" onchange="filterLecturers()">
+            <option value="">All Departments</option>
+            <% if (typeof departments !== 'undefined') { %>
+                <% departments.forEach(function(dept) { %>
+                    <option value="<%= dept.id %>"><%= dept.name %></option>
+                <% }); %>
+            <% } %>
+        </select>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-custom" id="lecturersTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Lecturer</th>
+                    <th>Staff ID</th>
+                    <th>Department</th>
+                    <th>Exams Assigned</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof lecturers !== 'undefined' && lecturers.length > 0) { %>
+                    <% lecturers.forEach(function(lecturer, index) { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                                <div class="table-user-info">
+                                    <div class="user-thumb">
+                                        <% if (lecturer.passport_url) { %>
+                                            <img src="/uploads/<%= lecturer.passport_url %>" alt="">
+                                        <% } else { %>
+                                            <%= lecturer.first_name.charAt(0) %>
+                                        <% } %>
+                                    </div>
+                                    <div class="user-details">
+                                        <div class="name"><%= lecturer.first_name %> <%= lecturer.last_name %></div>
+                                        <div class="email"><%= lecturer.email %></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><%= lecturer.staff_id || '—' %></td>
+                            <td><%= lecturer.department_name || '—' %></td>
+                            <td><%= lecturer.exam_count || 0 %></td>
+                            <td><span class="status-badge <%= lecturer.is_active ? 'active' : 'inactive' %>"><%= lecturer.is_active ? 'Active' : 'Inactive' %></span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon" title="Edit" onclick="editLecturer(<%= lecturer.id %>)"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-icon danger" title="Delete" onclick="deleteLecturer(<%= lecturer.id %>)"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="bi bi-people"></i>
+                                <h5>No Lecturers</h5>
+                                <p>No lecturers have been registered yet.</p>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Lecturer Modal -->
+<div class="modal fade modal-custom" id="addLecturerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus me-2"></i>Add New Lecturer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/admin/lecturers" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>First Name <span class="required-mark">*</span></label>
+                                <input type="text" name="first_name" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Last Name <span class="required-mark">*</span></label>
+                                <input type="text" name="last_name" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Email Address <span class="required-mark">*</span></label>
+                                <input type="email" name="email" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Password <span class="required-mark">*</span></label>
+                                <input type="password" name="password" class="form-control-custom" required minlength="6">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Staff ID</label>
+                                <input type="text" name="staff_id" class="form-control-custom">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Department</label>
+                                <select name="department_id" class="form-select-custom">
+                                    <option value="">Select Department</option>
+                                    <% if (typeof departments !== 'undefined') { %>
+                                        <% departments.forEach(function(dept) { %>
+                                            <option value="<%= dept.id %>"><%= dept.name %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Phone</label>
+                                <input type="text" name="phone" class="form-control-custom">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-custom btn-light-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-check-lg"></i> Add Lecturer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Lecturer Modal -->
+<div class="modal fade modal-custom" id="editLecturerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-pencil me-2"></i>Edit Lecturer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editLecturerForm" action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>First Name <span class="required-mark">*</span></label>
+                                <input type="text" name="first_name" id="editLecturerFirstName" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Last Name <span class="required-mark">*</span></label>
+                                <input type="text" name="last_name" id="editLecturerLastName" class="form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Staff ID</label>
+                                <input type="text" name="staff_id" id="editLecturerStaffId" class="form-control-custom">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Phone</label>
+                                <input type="text" name="phone" id="editLecturerPhone" class="form-control-custom">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Department</label>
+                                <select name="department_id" id="editLecturerDept" class="form-select-custom">
+                                    <option value="">Select Department</option>
+                                    <% if (typeof departments !== 'undefined') { %>
+                                        <% departments.forEach(function(dept) { %>
+                                            <option value="<%= dept.id %>"><%= dept.name %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>Status</label>
+                                <select name="is_active" id="editLecturerActive" class="form-select-custom">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group-custom">
+                                <label>New Passport Photo</label>
+                                <input type="file" name="passport" class="form-control-custom" accept="image/jpeg,image/png,image/jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-custom btn-light-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-custom btn-primary-custom"><i class="bi bi-check-lg"></i> Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

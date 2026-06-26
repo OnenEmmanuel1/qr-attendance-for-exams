@@ -1,0 +1,162 @@
+/* ═══════════════════════════════════════════════════════════
+   Button Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Base Button ────────────────────────────────────────── */
+.btn-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: 10px 20px;
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.5;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-custom:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ─── Primary Button ─────────────────────────────────────── */
+.btn-primary-custom {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-white);
+}
+
+/* ─── Accent Button ──────────────────────────────────────── */
+.btn-accent {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+}
+
+.btn-accent:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-white);
+}
+
+/* ─── Outline Primary ────────────────────────────────────── */
+.btn-outline-primary-custom {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-primary-custom:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ─── Outline Accent ─────────────────────────────────────── */
+.btn-outline-accent {
+    background-color: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-outline-accent:hover {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+/* ─── Danger Button ──────────────────────────────────────── */
+.btn-danger-custom {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    border-color: var(--color-danger);
+}
+
+.btn-danger-custom:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-white);
+}
+
+/* ─── Outline Danger ─────────────────────────────────────── */
+.btn-outline-danger-custom {
+    background-color: transparent;
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-outline-danger-custom:hover {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+/* ─── Success Button ─────────────────────────────────────── */
+.btn-success-custom {
+    background-color: var(--color-success);
+    color: var(--color-white);
+    border-color: var(--color-success);
+}
+
+.btn-success-custom:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-white);
+}
+
+/* ─── Light Button ───────────────────────────────────────── */
+.btn-light-custom {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.btn-light-custom:hover {
+    background-color: var(--color-border-light);
+    color: var(--color-heading);
+}
+
+/* ─── Button Sizes ───────────────────────────────────────── */
+.btn-sm-custom {
+    padding: 6px 14px;
+    font-size: var(--font-size-xs);
+}
+
+.btn-lg-custom {
+    padding: 14px 28px;
+    font-size: var(--font-size-base);
+}
+
+/* ─── Icon Button ────────────────────────────────────────── */
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+}
+
+.btn-icon.btn-icon-sm {
+    width: 30px;
+    height: 30px;
+    font-size: var(--font-size-xs);
+}
+
+/* ─── Button Group ───────────────────────────────────────── */
+.btn-group-custom {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}

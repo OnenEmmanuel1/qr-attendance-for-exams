@@ -1,0 +1,106 @@
+<!-- Admin Dashboard -->
+<link rel="stylesheet" href="/css/admin/admin-dashboard.css">
+<div class="welcome-card mb-4">
+    <div>
+        <h3>Admin Dashboard 🛡️</h3>
+        <p>System overview and management controls.</p>
+    </div>
+    <div class="welcome-icon">
+        <i class="bi bi-shield-lock"></i>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon primary">
+            <i class="bi bi-mortarboard"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Total Students</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.totalStudents || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon accent">
+            <i class="bi bi-person-workspace"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Total Lecturers</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.totalLecturers || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon success">
+            <i class="bi bi-journal-text"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Total Examinations</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.totalExams || 0 : 0 %></div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon info">
+            <i class="bi bi-graph-up"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-label">Attendance Rate</div>
+            <div class="stat-value"><%= typeof stats !== 'undefined' ? stats.attendanceRate || '0%' : '0%' %></div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="admin-quick-actions">
+    <a href="/admin/students" class="quick-action-btn">
+        <i class="bi bi-person-plus"></i> Add Student
+    </a>
+    <a href="/admin/lecturers" class="quick-action-btn">
+        <i class="bi bi-person-plus-fill"></i> Add Lecturer
+    </a>
+    <a href="/admin/examinations" class="quick-action-btn">
+        <i class="bi bi-plus-circle"></i> Create Exam
+    </a>
+    <a href="/admin/attendance-reports" class="quick-action-btn">
+        <i class="bi bi-file-earmark-bar-graph"></i> View Reports
+    </a>
+</div>
+
+<div class="content-grid">
+    <!-- Recent Activity -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-activity me-2"></i>Recent Activity</h5>
+            <a href="/admin/attendance-reports" style="font-size: var(--font-size-sm); color: var(--color-primary);">View All</a>
+        </div>
+        <div class="card-body-custom">
+            <% if (typeof recentActivity !== 'undefined' && recentActivity.length > 0) { %>
+                <% recentActivity.forEach(function(activity) { %>
+                    <div class="activity-item">
+                        <div class="activity-dot <%= activity.type === 'scan_success' ? 'success' : activity.type === 'scan_failed' ? 'danger' : 'primary' %>"></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><%= activity.details %></div>
+                            <div class="activity-time"><%= activity.created_at %></div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-activity"></i>
+                    <h5>No Recent Activity</h5>
+                    <p>System activity will appear here.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Attendance Chart -->
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <h5><i class="bi bi-bar-chart me-2"></i>Attendance Overview</h5>
+        </div>
+        <div class="card-body-custom">
+            <canvas id="attendanceChart" height="250"></canvas>
+        </div>
+    </div>
+</div>

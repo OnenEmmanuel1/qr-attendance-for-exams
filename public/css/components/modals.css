@@ -1,0 +1,168 @@
+/* ═══════════════════════════════════════════════════════════
+   Modal Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Modal Override ─────────────────────────────────────── */
+.modal-custom .modal-content {
+    border: 1px solid var(--color-text);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+}
+
+.modal-custom .modal-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-background);
+}
+
+.modal-custom .modal-header .modal-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+}
+
+.modal-custom .modal-header .btn-close {
+    opacity: 0.5;
+}
+
+.modal-custom .modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-custom .modal-body {
+    padding: var(--spacing-xl);
+    background-color: var(--color-background);
+}
+
+.modal-custom .modal-footer {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+}
+
+/* ─── Confirm Dialog ─────────────────────────────────────── */
+.confirm-dialog .modal-body {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.confirm-dialog .confirm-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    margin: 0 auto var(--spacing-lg);
+}
+
+.confirm-dialog .confirm-icon.warning {
+    background-color: var(--color-warning-light);
+    color: #856404;
+}
+
+.confirm-dialog .confirm-icon.danger {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.confirm-dialog .confirm-icon.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.confirm-dialog h5 {
+    font-size: var(--font-size-lg);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-sm);
+}
+
+.confirm-dialog p {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+}
+
+.confirm-dialog .modal-footer {
+    justify-content: center;
+}
+
+/* ─── Scan Result Modal ──────────────────────────────────── */
+.scan-result-modal .student-info-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    background-color: var(--color-background);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.scan-result-modal .student-passport {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+.scan-result-modal .student-passport img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scan-result-modal .student-details h5 {
+    font-size: var(--font-size-lg);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-xs);
+}
+
+.scan-result-modal .student-details .detail-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: 4px;
+}
+
+.scan-result-modal .student-details .detail-row i {
+    color: var(--color-primary);
+    width: 16px;
+}
+
+.scan-result-modal .verification-status {
+    text-align: center;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.scan-result-modal .verification-status.verified {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.scan-result-modal .verification-status.failed {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.scan-result-modal .verification-status i {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.scan-result-modal .verification-status h6 {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 0;
+}

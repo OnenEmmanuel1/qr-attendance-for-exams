@@ -1,0 +1,106 @@
+<!-- Lecturer QR Scanner -->
+<link rel="stylesheet" href="/css/pages/qrcode.css">
+<div class="row g-4">
+    <div class="col-lg-7">
+        <!-- Scanner -->
+        <div class="scanner-container">
+            <div class="scanner-header">
+                <h5><i class="bi bi-camera me-2"></i>QR Code Scanner</h5>
+                <select id="examSelect" class="form-select-custom" style="max-width: 250px;">
+                    <option value="">Select Examination</option>
+                    <% if (typeof examinations !== 'undefined') { %>
+                        <% examinations.forEach(function(exam) { %>
+                            <option value="<%= exam.id %>"><%= exam.course_code %> - <%= exam.exam_date %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="scanner-viewfinder">
+                <div id="reader"></div>
+            </div>
+            <div class="scanner-controls">
+                <div class="scanner-status">
+                    <span class="status-indicator" id="scannerStatus"></span>
+                    <span id="scannerStatusText">Scanner Ready</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn-custom btn-primary-custom" id="startScanBtn" onclick="startScanner()">
+                        <i class="bi bi-play-fill"></i> Start Scan
+                    </button>
+                    <button class="btn-custom btn-outline-primary-custom" id="stopScanBtn" onclick="stopScanner()" style="display:none;">
+                        <i class="bi bi-stop-fill"></i> Stop
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Entry -->
+        <div class="card-custom mt-3">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-keyboard me-2"></i>Manual Entry</h5>
+            </div>
+            <div class="card-body-custom">
+                <form id="manualEntryForm" onsubmit="manualLookup(event)">
+                    <div class="d-flex gap-2">
+                        <input type="text" id="manualMatric" class="form-control-custom" placeholder="Enter Matric Number">
+                        <button type="submit" class="btn-custom btn-primary-custom" style="white-space: nowrap;">
+                            <i class="bi bi-search"></i> Look Up
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <!-- Scan Result -->
+        <div class="card-custom mb-3" id="scanResultCard" style="display:none;">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-person-check me-2"></i>Scan Result</h5>
+            </div>
+            <div class="card-body-custom">
+                <div class="verification-status" id="verificationStatus">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <h6 id="verificationMessage">Verified</h6>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3" id="studentInfoDisplay">
+                    <div class="student-passport" style="width:80px; height:80px; border-radius:var(--radius-lg); overflow:hidden; border:2px solid var(--color-border-light);">
+                        <img id="studentPassport" src="" alt="Student" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div>
+                        <h5 id="studentName" style="margin-bottom:4px;"></h5>
+                        <p id="studentMatric" style="margin-bottom:2px; font-size: var(--font-size-sm); color: var(--color-text);"></p>
+                        <p id="studentDept" style="margin-bottom:0; font-size: var(--font-size-sm); color: var(--color-text);"></p>
+                    </div>
+                </div>
+                <ul class="qr-details-list" id="examDetailsList">
+                    <li><span class="label">Course</span><span class="value" id="examCourse"></span></li>
+                    <li><span class="label">Venue</span><span class="value" id="examVenue"></span></li>
+                    <li><span class="label">Date</span><span class="value" id="examDate"></span></li>
+                </ul>
+                <div class="d-flex gap-2 mt-3" id="actionButtons">
+                    <button class="btn-custom btn-success-custom flex-fill" id="approveBtn" onclick="approveAttendance()">
+                        <i class="bi bi-check-lg"></i> Approve
+                    </button>
+                    <button class="btn-custom btn-danger-custom flex-fill" id="rejectBtn" onclick="rejectScan()">
+                        <i class="bi bi-x-lg"></i> Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Log -->
+        <div class="scan-log">
+            <div class="scan-log-header">
+                <h5><i class="bi bi-list-check me-2"></i>Scan Log</h5>
+                <span class="badge badge-primary" id="scanCount">0 scans</span>
+            </div>
+            <div class="scan-log-body" id="scanLogBody">
+                <div class="empty-state" id="scanLogEmpty">
+                    <i class="bi bi-qr-code-scan"></i>
+                    <p>No scans yet this session.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

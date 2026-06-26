@@ -1,0 +1,83 @@
+<!-- Lecturer Attendance Records -->
+<link rel="stylesheet" href="/css/pages/attendance.css">
+<div class="attendance-filters">
+    <span class="filter-label"><i class="bi bi-funnel me-1"></i> Filter:</span>
+    <select id="filterExam" class="form-select-custom" style="max-width: 250px;" onchange="filterRecords()">
+        <option value="">All Examinations</option>
+        <% if (typeof examinations !== 'undefined') { %>
+            <% examinations.forEach(function(exam) { %>
+                <option value="<%= exam.id %>"><%= exam.course_code %> - <%= exam.exam_date %></option>
+            <% }); %>
+        <% } %>
+    </select>
+    <select id="filterStatus" onchange="filterRecords()">
+        <option value="">All Status</option>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+        <option value="late">Late</option>
+    </select>
+    <input type="date" id="filterDate" onchange="filterRecords()">
+</div>
+
+<div class="card-custom">
+    <div class="card-header-custom">
+        <h5><i class="bi bi-clipboard-data me-2"></i>Attendance Records</h5>
+        <div class="d-flex gap-2">
+            <a href="/lecturer/reports" class="btn-custom btn-sm-custom btn-outline-primary-custom">
+                <i class="bi bi-file-earmark-bar-graph"></i> Reports
+            </a>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-custom" id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Matric No.</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                    <th>Scanned At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof records !== 'undefined' && records.length > 0) { %>
+                    <% records.forEach(function(record, index) { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                                <div class="table-user-info">
+                                    <div class="user-thumb">
+                                        <% if (record.passport_url) { %>
+                                            <img src="/uploads/<%= record.passport_url %>" alt="<%= record.first_name %>">
+                                        <% } else { %>
+                                            <%= record.first_name.charAt(0) %>
+                                        <% } %>
+                                    </div>
+                                    <div class="user-details">
+                                        <div class="name"><%= record.first_name %> <%= record.last_name %></div>
+                                        <div class="email"><%= record.department_name || '' %></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><%= record.matric_number %></td>
+                            <td><%= record.course_code %></td>
+                            <td><span class="status-badge <%= record.status %>"><%= record.status %></span></td>
+                            <td><%= record.scanned_at %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <i class="bi bi-clipboard-x"></i>
+                                <h5>No Records</h5>
+                                <p>No attendance records found for your examinations.</p>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

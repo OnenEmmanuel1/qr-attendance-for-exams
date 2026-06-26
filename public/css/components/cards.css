@@ -1,0 +1,264 @@
+/* ═══════════════════════════════════════════════════════════
+   Card Styles — QR Exam Attendance System
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Base Card ──────────────────────────────────────────── */
+.card-custom {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base);
+    overflow: hidden;
+}
+
+.card-custom:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.card-custom .card-header-custom {
+    padding: 0 0 var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+}
+
+.card-custom .card-header-custom h5 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.card-custom .card-body-custom {
+    padding: 0;
+}
+
+.card-custom .card-footer-custom {
+    padding: var(--spacing-md) 0 0 0;
+    border-top: 1px solid var(--color-border);
+    background-color: transparent;
+    margin-top: var(--spacing-lg);
+}
+
+/* ─── Stat Card ──────────────────────────────────────────── */
+.stat-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    transition: box-shadow var(--transition-base);
+    min-height: 120px;
+    height: 100%;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card .stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+.stat-card .stat-icon.primary {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.stat-card .stat-icon.accent {
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.stat-card .stat-icon.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.stat-card .stat-icon.danger {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.stat-card .stat-icon.warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.stat-card .stat-icon.info {
+    background-color: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.stat-card .stat-info {
+    flex: 1;
+}
+
+.stat-card .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-card .stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-heading);
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-card .stat-change {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-card .stat-change.positive { color: var(--color-success); }
+.stat-card .stat-change.negative { color: var(--color-danger); }
+
+/* ─── Info Card ──────────────────────────────────────────── */
+.info-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    height: 100%;
+}
+
+.info-card .info-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    margin: 0 auto var(--spacing-lg);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.info-card h5 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-sm);
+}
+
+.info-card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: 0;
+}
+
+/* ─── Welcome Card ───────────────────────────────────────── */
+.welcome-card {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.welcome-card h3 {
+    color: var(--color-heading);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.welcome-card p {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}
+
+.welcome-card .welcome-icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+    opacity: 0.85;
+}
+
+/* ─── Activity Card ──────────────────────────────────────── */
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item .activity-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.activity-item .activity-dot.primary { background-color: var(--color-primary); }
+.activity-item .activity-dot.success { background-color: var(--color-success); }
+.activity-item .activity-dot.danger { background-color: var(--color-danger); }
+.activity-item .activity-dot.accent { background-color: var(--color-accent); }
+
+.activity-item .activity-content {
+    flex: 1;
+}
+
+.activity-item .activity-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-heading);
+    margin-bottom: 2px;
+}
+
+.activity-item .activity-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
+/* ─── Responsive Cards ───────────────────────────────────── */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: var(--spacing-lg);
+    }
+
+    .stat-card .stat-value {
+        font-size: var(--font-size-xl);
+    }
+
+    .welcome-card {
+        padding: var(--spacing-xl);
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+
+    .welcome-card .welcome-icon {
+        display: none;
+    }
+}
