@@ -64,7 +64,9 @@
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <% } else { %>
         <!-- Public Layout with Navbar -->
-        <%- include('../partials/navbar') %>
+        <% if (typeof hideNavbar === 'undefined' || !hideNavbar) { %>
+            <%- include('../partials/navbar') %>
+        <% } %>
         <main class="main-content">
             <%- body %>
         </main>

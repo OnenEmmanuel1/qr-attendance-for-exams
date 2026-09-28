@@ -36,6 +36,22 @@
                     </div>
                 </div>
 
+                <!-- Department -->
+                <div class="form-group-custom" id="departmentGroup">
+                    <label for="department">Department <span class="required-mark">*</span></label>
+                    <div class="input-icon-wrapper">
+                        <i class="bi bi-building input-icon"></i>
+                        <select id="department" name="department_id" class="form-control-custom" required>
+                            <option value="">Select your department</option>
+                            <% if (typeof departments !== 'undefined' && departments.length > 0) { %>
+                                <% departments.forEach(dept => { %>
+                                    <option value="<%= dept.id %>" <%= typeof department_id !== 'undefined' && department_id == dept.id ? 'selected' : '' %>><%= dept.name %></option>
+                                <% }); %>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Email -->
                 <div class="form-group-custom">
                     <label for="registerEmail">Email Address <span class="required-mark">*</span></label>

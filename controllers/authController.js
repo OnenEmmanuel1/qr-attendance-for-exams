@@ -8,7 +8,8 @@ const Admin = require('../models/Admin');
 exports.getLogin = (req, res) => {
     res.render('auth/login', {
         title: 'Login',
-        layout: 'layouts/main'
+        layout: 'layouts/main',
+        hideNavbar: true
     });
 };
 
@@ -27,7 +28,8 @@ exports.postLogin = async (req, res) => {
             req.flash('error_msg', 'Invalid credentials');
             return res.render('auth/login', {
                 title: 'Login',
-                email
+                email,
+                hideNavbar: true
             });
         }
 
@@ -41,7 +43,8 @@ exports.postLogin = async (req, res) => {
             req.flash('error_msg', 'Invalid credentials');
             return res.render('auth/login', {
                 title: 'Login',
-                email
+                email,
+                hideNavbar: true
             });
         }
 
@@ -77,26 +80,41 @@ exports.postLogin = async (req, res) => {
     }
 };
 
-exports.getRegister = (req, res) => {
-    res.render('auth/register', {
-        title: 'Register',
-        layout: 'layouts/main'
-    });
+const Department = require('../models/Department');
+
+exports.getRegister = async (req, res) => {
+    try {
+        const departments = await Department.getAll();
+        res.render('auth/register', {
+            title: 'Register',
+            layout: 'layouts/main',
+            hideNavbar: true,
+            departments
+        });
+    } catch (err) {
+        console.error('Error fetching departments:', err);
+        req.flash('error_msg', 'Failed to load registration page.');
+        res.redirect('/auth/login');
+    }
 };
 
 exports.postRegister = async (req, res) => {
     try {
-        const { first_name, last_name, email, password, role, matric_number } = req.body;
+        const { first_name, last_name, email, password, role, matric_number, department_id } = req.body;
         
         const existingUser = await User.findByEmail(email);
         if (existingUser) {
             req.flash('error_msg', 'Email is already registered');
+            const departments = await Department.getAll();
             return res.render('auth/register', {
                 title: 'Register',
                 first_name,
                 last_name,
                 email,
-                matric_number
+                matric_number,
+                department_id,
+                hideNavbar: true,
+                departments
             });
         }
 
@@ -105,12 +123,16 @@ exports.postRegister = async (req, res) => {
             const existingMatric = await Student.findByMatric(matric_number);
             if (existingMatric) {
                 req.flash('error_msg', 'Matric number is already registered');
+                const departments = await Department.getAll();
                 return res.render('auth/register', {
                     title: 'Register',
                     first_name,
                     last_name,
                     email,
-                    matric_number
+                    matric_number,
+                    department_id,
+                    hideNavbar: true,
+                    departments
                 });
             }
         }
@@ -128,7 +150,8 @@ exports.postRegister = async (req, res) => {
                 user_id: userId,
                 first_name,
                 last_name,
-                matric_number
+                matric_number,
+                department_id: department_id || null
             });
         } else if (role === 'lecturer') {
             await Lecturer.create({
@@ -165,7 +188,8 @@ exports.logout = (req, res) => {
 exports.getForgotPassword = (req, res) => {
     res.render('auth/forgot-password', {
         title: 'Forgot Password',
-        layout: 'layouts/main'
+        layout: 'layouts/main',
+        hideNavbar: true
     });
 };
 
@@ -214,7 +238,8 @@ exports.getResetPassword = async (req, res) => {
         res.render('auth/reset-password', {
             title: 'Reset Password',
             layout: 'layouts/main',
-            token
+            token,
+            hideNavbar: true
         });
     } catch (err) {
         console.error('Get reset password error:', err);
